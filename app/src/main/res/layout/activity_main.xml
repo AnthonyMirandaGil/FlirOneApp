@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    tools:context=".MainActivity">
+
+    <!-- Title  -->
+
+    <!-- Start / Stop discovery buttons  -->
+
+    <!-- Connect to FLIR ONE / Emulators buttons  -->
+
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/title_text"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/stop_discovery"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="41dp"
+        android:onClick="stopDiscovery"
+        android:text="@string/stop_discovery_text"
+        app:layout_constraintBottom_toBottomOf="@+id/start_discovery"
+        app:layout_constraintStart_toEndOf="@+id/start_discovery"
+        app:layout_constraintTop_toTopOf="@+id/start_discovery" />
+
+    <Button
+        android:id="@+id/start_discovery"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:onClick="startDiscovery"
+        android:text="@string/start_discovery_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/discovery_status"
+        android:layout_width="0dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="13dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/discovery_status_text"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/connect_flir_one"
+        app:layout_constraintEnd_toStartOf="@+id/stop_discovery"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/start_discovery" />
+
+    <Button
+        android:id="@+id/connect_flir_one"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="122dp"
+        android:layout_marginBottom="120dp"
+        android:onClick="connectFlirOne"
+        android:text="@string/connect_f1_text"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintEnd_toStartOf="@+id/connect_s2"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView" />
+
+    <Button
+        android:id="@+id/connect_s2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="6dp"
+        android:onClick="connectSimulatorTwo"
+        android:text="@string/connect_sim_text"
+        app:layout_constraintEnd_toStartOf="@+id/disconnect_any"
+        app:layout_constraintStart_toEndOf="@+id/connect_flir_one"
+        app:layout_constraintTop_toTopOf="@+id/connect_flir_one" />
+
+    <ImageView
+        android:id="@+id/msx_image"
+        android:layout_width="384dp"
+        android:layout_height="277dp"
+        android:contentDescription="image with IR and visual data mixed"
+        android:minWidth="50dp"
+        android:minHeight="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/recordButton"
+        android:layout_width="124dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="71dp"
+        android:text="Start Record"
+        app:layout_constraintEnd_toStartOf="@+id/btnTakePicture"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/connect_flir_one" />
+
+    <Button
+        android:id="@+id/disconnect_any"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="26dp"
+        android:onClick="disconnect"
+        android:text="@string/disconnect_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/connect_s2"
+        app:layout_constraintTop_toTopOf="@+id/connect_s2" />
+
+    <Button
+        android:id="@+id/btnTakePicture"
+        android:layout_width="118dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:layout_marginEnd="45dp"
+        android:text="Take Picture"
+        app:layout_constraintBottom_toBottomOf="@+id/recordButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/spinner"
+        app:layout_constraintTop_toTopOf="@+id/recordButton"
+        tools:ignore="MissingConstraints" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="150dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="87dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="40dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginBottom="22dp"
+        android:text="Paleta"
+        app:layout_constraintBottom_toTopOf="@+id/msx_image"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Spinner
+        android:id="@+id/spinnerFusion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="70dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView3"
+        app:layout_constraintStart_toEndOf="@+id/textView3"
+        app:layout_constraintTop_toTopOf="@+id/textView3" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
+        android:text="Fusion Mode"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recordButton" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

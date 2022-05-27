@@ -1,0 +1,66 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 32
+
+    defaultConfig {
+        applicationId "com.samples.flironecamera"
+        minSdkVersion 21
+        targetSdkVersion 32
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    repositories {
+        // default path where thermalsdk AAR is stored
+        flatDir dirs: '../../../modules/thermalsdk/build/outputs/aar'
+        // default path where androidsdk AAR is stored
+        flatDir dirs: '../../../modules/androidsdk/build/outputs/aar'
+        // superproject path where all required AARs are stored (for local debug builds only)
+        flatDir dirs: '../../../MastodonAndroid/prebuilt-aar'
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+configurations {
+    javacpp
+}
+
+task javacppExtract(type: Copy) {
+    dependsOn configurations.javacpp
+
+    from { configurations.javacpp.collect { zipTree(it) } }
+    include "lib/**"
+    into "$buildDir/javacpp/"
+    android.sourceSets.main.jniLibs.srcDirs += ["$buildDir/javacpp/lib/"]
+
+    tasks.getByName('preBuild').dependsOn javacppExtract
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
+    // add Thermal SDK 'aar' library located under 'modules/thermalsdk/build/outputs/aar'
+    // add Thermal SDK for Android 'aar' library located under 'modules/thermalsdk/build/outputs/aar'
+    // implementation group: 'org.bytedeco', name: 'javacv-platform', version: '1.5.6'
+
+    implementation group: 'org.bytedeco', name: 'javacv', version: '1.5.6'
+    implementation 'com.google.android.material:material:1.6.0'
+    javacpp group: 'org.bytedeco', name: 'openblas-platform', version: '0.3.17-1.5.6'
+    javacpp group: 'org.bytedeco', name: 'opencv-platform', version: '4.5.3-1.5.6'
+    javacpp group: 'org.bytedeco', name: 'ffmpeg-platform', version: '4.4-1.5.6'
+    implementation 'org.jetbrains:annotations:16.0.1'
+    implementation files('libs/androidsdk-release.aar')
+    implementation files('libs/thermalsdk-release.aar')
+}
+
