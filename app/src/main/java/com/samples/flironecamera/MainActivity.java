@@ -38,6 +38,7 @@ import androidx.core.app.ActivityCompat;
 
 import com.flir.thermalsdk.ErrorCode;
 import com.flir.thermalsdk.androidsdk.ThermalSdkAndroid;
+import com.flir.thermalsdk.androidsdk.image.BitmapAndroid;
 import com.flir.thermalsdk.androidsdk.live.connectivity.UsbPermissionHandler;
 import com.flir.thermalsdk.image.ThermalImage;
 import com.flir.thermalsdk.image.fusion.FusionMode;
@@ -472,15 +473,27 @@ public class MainActivity extends AppCompatActivity {
 
                     Long timeSeconds = System.currentTimeMillis() / 1000;
                     String stringTs = timeSeconds.toString();
-                    //String fileName = Environment.getExternalStorageDirectory() + "/" + stringTs + ".jpg";
-                    String fileName = Environment.DIRECTORY_PICTURES + File.separator  + stringTs + ".jpg";
+                    File file = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), stringTs + ".jpg" );
+                    String absPath = file.getAbsolutePath();
+                    FileOutputStream fos = null;
                     try {
-                        thermalImage.saveAs(fileName);
-                    } catch (IOException e) {
+                        fos = new FileOutputStream(file);
+                    } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
 
-                    Toast.makeText(getApplicationContext(), "Imagen Guardado en: " + fileName, Toast.LENGTH_LONG).show();
+                    Bitmap bitmap = BitmapAndroid.createBitmap(thermalImage.getImage()).getBitMap();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+
+                    //String fileName = Environment.getExternalStorageDirectory() + "/" + stringTs + ".jpg";
+                    //String fileName = Environment.DIRECTORY_PICTURES + File.separator  + stringTs + ".jpg";
+                   /* try {
+                        thermalImage.saveAs(absPath);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }*/
+
+                    Toast.makeText(getApplicationContext(), "Imagen Guardado en: " + absPath, Toast.LENGTH_LONG).show();
                 }
             });
         }
